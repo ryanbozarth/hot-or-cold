@@ -1,7 +1,8 @@
 
 $(document).ready(function(){
 
-	var randomNumber = 1;
+	var randomNumber = undefined;
+  var numberDistance = Math.abs(userGuess - randomNumber);
 	
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
@@ -13,17 +14,12 @@ $(document).ready(function(){
   	$("a.close").click(function(){
   		$(".overlay").fadeOut(1000);
   	});
-
-
     /*--- New game  ---*/
   	$(".new").on("click", function(){
   		randomNumber = Math.floor((Math.random() * 100) + 1);
   		console.log(randomNumber);
   		// newGame();
   	});
-
-
-
   	 /*--- Capture guess  ---*/
 
   	 $("#guessButton").on("click", function(event){
@@ -32,7 +28,7 @@ $(document).ready(function(){
     	console.log(userGuess);
     	$("#userGuess").val('');
     	verifyValue(userGuess);
-    	checkValue(userGuess);
+    	
     });
 
    function verifyValue(value){
@@ -43,7 +39,7 @@ $(document).ready(function(){
   	    alert("Please enter a number between 1 and 100")
       }
       else {
-  	    console.log("checkValue works"); // replace with checkGuess function
+  	    checkValue(userGuess);
       }
     }
       /*--- Check guess  ---*/
@@ -52,9 +48,16 @@ $(document).ready(function(){
       if (userGuess == randomNumber) {
       	$("#feedback").replaceWith("<h2>You won! Click new game to play again.</h2>");
       }
-      else (userGuess = )
-  }
+      else if (numberDistance < 10) {
+        $("#feedback").replaceWith("<h2>hot</h2>");
+      }
+      else {
+       $("#feedback").replaceWith("<h2>cold</h2>"); 
+      }
+    }
 
+
+}); // end doc ready
 
 /*
 
@@ -64,9 +67,10 @@ $(document).ready(function(){
       	$("#feedback").show(); // needs to show "make your guess!" after guesses
       }
  
+  Math.abs(userGuess - random);
+
  */
 
 
-}); // end doc ready
 
 
