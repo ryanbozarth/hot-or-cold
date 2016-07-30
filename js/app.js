@@ -5,6 +5,7 @@ $(document).ready(function(){
 	  var randomNumber;
     var guessCount; 
     newGame();
+    var guessArray;
 	
 	/*--- Display information modal box ---*/
   	$(".what").click(function(){
@@ -21,6 +22,7 @@ $(document).ready(function(){
   randomNumber = Math.floor((Math.random() * 100) + 1);
       guessCount = 0;
       console.log(randomNumber);
+      guessArray = [];
   }
 
 
@@ -63,28 +65,37 @@ $(document).ready(function(){
       
 
       var numberDistance = Math.abs(userGuess - randomNumber);
+      
 
       if (userGuess == randomNumber) {
       	 $("#feedback").text("You won! Click new game to play again.");
+      }
+      else if(guessArray.indexOf(userGuess) != -1){
+          alert("You already guessed that!");
       }
       else if (numberDistance < 10) {
          $("#feedback").text("hot");
          guessCount += 1;
          $("#count").text(guessCount);
+         guessArray.push(userGuess);
       }
       else if (numberDistance > 10 && numberDistance < 20) {
          $("#feedback").text("kinda hot");
          guessCount += 1;
          $("#count").text(guessCount);
+         guessArray.push(userGuess);
       }
       else {
         $("#feedback").text("cold"); 
         guessCount += 1;
         $("#count").text(guessCount);
+        guessArray.push(userGuess);
       }
     }
     function guessFeedback(userGuess) {
+      if (guessArray.indexOf(userGuess) != -1){
       $(".game ul").append("<li>"+userGuess);
+      }
       }
 
 }); // end doc ready
